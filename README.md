@@ -16,7 +16,9 @@ Alternatively you can use the Spring Boot Maven plugin like so:
 
 * mvn spring-boot:run
 
-If you want to run
+Note:
+If you want to run this code on MySQL, please comment the h2 configuration and un-comment the mysql configuration from the
+application.yml file.
 
 ----------------------------------------------------
 This application using in memory database h2. You can access the h2 database console on your local machine using below URL:
