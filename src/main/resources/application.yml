@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: movie-data
+
+  jpa:
+    show-sql: true
+
+  h2:
+    console:
+      enabled: true
+      path: /h2
+  datasource:
+    url: jdbc:h2:file:~/test
+    username: sa
+    password:
+    driverClassName: org.h2.Driver
+
+  #MySQL configuration is commented as mysql was not working on my local machine
+  #datasource:
+    #driverClassName: com.mysql.jdbc.Driver
+    #url: jdbc:mysql://localhost:3306/test
+    #username:
+    #password:
+
+server:
+  port: 8080
