@@ -1,5 +1,7 @@
 package com.example.moviedemo.adapter.Controller;
 
+import com.example.moviedemo.common.Exception.BadRequestException;
+import com.example.moviedemo.common.Utils;
 import com.example.moviedemo.domain.model.dto.GenericResponse;
 import com.example.moviedemo.domain.model.dto.MovieDataRequest;
 import com.example.moviedemo.domain.model.dto.MovieDataResponse;
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 import static com.example.moviedemo.common.CommonMessageConstants.DATA_DELETED_SUCCESSFULLY;
+import static com.example.moviedemo.common.Exception.ExceptionConstants.INVALID_RATING_RANGE;
 import static com.example.moviedemo.common.RestConstant.MOVIE_DATA_API;
 import static com.example.moviedemo.common.RestConstant.MovieData.MOVIE_API;
 import static com.example.moviedemo.common.RestConstant.MovieData.MOVIE_API_BY_ID;
@@ -25,6 +28,11 @@ public class MovieDataController {
 
     @PostMapping(MOVIE_API)
     public ResponseEntity<MovieDataResponse> createMovieData(@RequestBody MovieDataRequest movieDataRequest) {
+
+        //Validating the input rating range
+        if (!Utils.checkRatingRange(movieDataRequest.getRating())) {
+            throw new BadRequestException(INVALID_RATING_RANGE);
+        }
 
         MovieDataResponse movieDataResponse = movieDataService.saveMovieData(movieDataRequest);
 
@@ -49,6 +57,10 @@ public class MovieDataController {
 
     @PutMapping(MOVIE_API)
     public ResponseEntity<MovieDataResponse> updateMovieData(@RequestBody MovieDataRequest movieDataRequest) {
+        //Validating the input rating range
+        if (!Utils.checkRatingRange(movieDataRequest.getRating())) {
+            throw new BadRequestException(INVALID_RATING_RANGE);
+        }
 
         MovieDataResponse movieDataResponse = movieDataService.updateMovieData(movieDataRequest);
 
